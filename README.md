@@ -5,7 +5,7 @@
 HTML, CSS, JAVASCRIPT
 
 ### 실행영상
-<img src="https://user-images.githubusercontent.com/59095793/132758788-9922433c-14b1-41e1-9195-71d0c83fa935.gif" width="600" height="600">
+<img src="https://user-images.githubusercontent.com/59095793/132758788-9922433c-14b1-41e1-9195-71d0c83fa935.gif" width="800" height="800">
 
 ### 개선사항
 -[ ] 일정 크기 이상 줄였을때 당근,벌레 이미지들이 화면 옆으로 넘어감
