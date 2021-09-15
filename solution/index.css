@@ -2,6 +2,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: black;
 }
 .game {
     width: 800px;
@@ -38,19 +39,23 @@ body {
     margin-top: 8px;
     border-radius: 20px;
     visibility: hidden;
+    /* 선택안되게 */
+    user-select: none;
+    cursor: auto;
 }
 .game__score {
     text-align: center;
     width: 50px;
     height: 50px;
-    font-size: 46px;
+    font-size: 38px;
     margin-top: 8px;
     background-color: darksalmon;
     border: 3px solid black;
     border-radius: 50%;
-    line-height: 100%;
     color: white;
     visibility: hidden;
+    user-select: none;
+    cursor: auto;
 }
 .game__field {
     position: relative;
@@ -83,4 +88,13 @@ body {
 .pop-up__message {
     display: block;
     font-size: 38px;
+}
+
+.carrot,
+.bug {
+    transition: transform 100ms ease-in;
+}
+.carrot:hover,
+.bug:hover {
+    transform: scale(1.1);
 }

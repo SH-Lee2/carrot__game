@@ -1,4 +1,4 @@
-const CARROT_SIZE = 80;
+const CARROT_SIZE = 130;
 const CARROT_COUNT = 10;
 const BUG_COUNT = 5;
 const GAME_DURATION_SEC = 5;
@@ -12,6 +12,12 @@ const gameScore = document.querySelector(".game__score");
 const popUp = document.querySelector(".pop-up");
 const popUpText = document.querySelector(".pop-up__message");
 const popUpRefresh = document.querySelector(".pop-up__refresh");
+
+const carrotSound = new Audio("./sound/carrot_pull.mp3");
+const alertSound = new Audio("./sound/alert.wav");
+const bgSound = new Audio("./sound/bg.mp3");
+const bugSound = new Audio("./sound/bug_pull.mp3");
+const winSound = new Audio("./sound/game_win.mp3");
 
 let started = false;
 let score = 0;
@@ -38,6 +44,7 @@ function startGame() {
     showStopButton();
     showTimerAndScore();
     startGameTimer();
+    playSound(bgSound);
 }
 
 function stopGame() {
@@ -45,17 +52,26 @@ function stopGame() {
     stopGameTimer();
     hideGameButton();
     showPopUpWithText("REPLY ❓");
+    playSound(alertSound);
+    stopSound(bgSound);
 }
 
 function finishGame(win) {
     started = false;
     hideGameButton();
+    if (win) {
+        playSound(winSound);
+    } else {
+        playSound(bugSound);
+    }
+    stopSound(bgSound);
     showPopUpWithText(win ? "YOU WON 🎉" : "YOU LOST 💩");
 }
 function showStopButton() {
     const icon = gameBtn.querySelector(".fas");
     icon.classList.remove("fa-play");
     icon.classList.add("fa-stop");
+    gameBtn.style.visibility = "visible";
 }
 function hideGameButton() {
     gameBtn.style.visibility = "hidden";
@@ -94,6 +110,7 @@ function hidePopUp() {
     popUp.classList.add("pop-up__hide");
 }
 function initGame() {
+    score = 0;
     field.innerHTML = ``;
     gameScore.innerText = CARROT_COUNT;
     addItem("carrot", CARROT_COUNT, "./img/carrot.png");
@@ -106,14 +123,25 @@ function onFieldClick(event) {
     if (target.matches(".carrot")) {
         target.remove();
         score++;
+        playSound(carrotSound);
         updateScoreBoard();
-        if (score === CARROT_COUNT) finishGame(true);
+        if (score === CARROT_COUNT) {
+            finishGame(true);
+        }
     } else if (target.matches(".bug")) {
         stopGameTimer();
         finishGame(false);
     }
 }
 
+function playSound(sound) {
+    sound.currentTime = 0;
+    sound.play();
+}
+
+function stopSound(sound) {
+    sound.pause();
+}
 function updateScoreBoard() {
     gameScore.innerText = CARROT_COUNT - score;
 }
@@ -125,14 +153,16 @@ function addItem(className, count, imgPath) {
     const x2 = fieldRect.width - CARROT_SIZE; // field의 우하단 젤 끝
     const y2 = fieldRect.height - CARROT_SIZE;
     for (let i = 0; i < count; i++) {
-        const item = new Image();
+        const item = document.createElement("img");
         item.setAttribute("class", className);
-        item.src = imgPath;
+        item.setAttribute("src", imgPath);
         // absolute 는 position이 static가 아닌 position을 기준으로 잡고 상위 부모들이 static이면 body를 기준으로 함
         item.style.position = "absolute";
         const x = randomNumber(x1, x2);
         const y = randomNumber(y1, y2);
-        item.style.transform = `translate(${x}px,${y}px)`;
+        // item.style.transform = `translate(${x}px,${y}px)`;
+        item.style.left = `${x}px`;
+        item.style.top = `${y}px`;
         field.appendChild(item);
     }
 }
