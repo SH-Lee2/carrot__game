@@ -1,47 +1,55 @@
+:root {
+    --btn-color: bisque;
+    --btn-width: 65px;
+    --btn-height: 65px;
+    --btn-font-size: 30px;
+}
+
 * {
     box-sizing: border-box;
 }
 body {
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 .main {
-    background-image: url(img/background.png);
-    background-size: cover;
+    background: url(img/background.png) center/cover;
     height: 100vh;
     width: 100vw;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
 }
 
-.field {
-    position: absolute;
-    top: 60%;
-    height: 40%;
-    width: 100vw;
+.game__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 600px;
 }
 
-.carrots,
-.bugs {
-    cursor: pointer;
-}
-
-.play {
+.game__play {
+    margin: 0;
     border: 5px solid black;
     border-radius: 10px;
     position: absolute;
-    top: 5%;
-    height: 65px;
-    width: 65px;
-    font-size: 30px;
-    background-color: bisque;
+    top: 5vh;
+    height: var(--btn-height);
+    width: var(--btn-width);
+    font-size: var(--btn-font-size);
+    background-color: var(--btn-color);
     transition: all 100ms ease-in;
     cursor: pointer;
+    user-select: none;
 }
-.play:hover {
+.game__play:hover {
     transform: scale(1.1);
 }
 
-.timer__time {
+.game__timer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -50,14 +58,17 @@ body {
     width: 195px;
     height: 50px;
     position: absolute;
-    top: 15%;
+    top: 14vh;
     font-size: 35px;
     font-weight: 600;
     background-color: white;
+    user-select: none;
+    visibility: hidden;
 }
 .carrot__count {
+    margin: 0;
     position: absolute;
-    top: 22%;
+    top: 22vh;
     border: 3px solid black;
     border-radius: 50%;
     background-color: #ff8e54;
@@ -69,6 +80,45 @@ body {
     justify-content: center;
     font-size: 50px;
     font-weight: 550;
+    user-select: none;
+    visibility: hidden;
+}
+.game__field {
+    /* position:relative 해줘야 item 추가할때 .game__field기준으로 top,left 좌표 설정 가능  */
+    position: relative;
+    width: 100%;
+    height: 100%;
+    user-select: none;
+}
+.pop-up {
+    width: 550px;
+    height: 200px;
+    padding: 20px;
+    color: white;
+    background-color: #00000090;
+    border-radius: 20px;
+    text-align: center;
+    transform: translateY(-200%);
+    z-index: 1;
+}
+.pop-up__hide {
+    display: none;
+}
+.pop-up__refresh {
+    height: var(--btn-height);
+    width: var(--btn-width);
+    font-size: var(--btn-font-size);
+    background-color: wheat;
+    border: 3px solid black;
+    border-radius: 50%;
+    margin-bottom: 30px;
+}
+.pop-up__refresh:hover {
+    cursor: pointer;
+}
+.pop-up__message {
+    display: block;
+    font-size: 45px;
 }
 
 .end__game {
@@ -111,4 +161,14 @@ body {
     align-items: center;
     font-size: 50px;
     font-weight: 600;
+}
+.carrot,
+.bug {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.carrot:hover,
+.bug:hover {
+    transform: scale(1.1);
 }

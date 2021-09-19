@@ -10,18 +10,25 @@
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
-    <section class="main" data-game="ready">
-        <button class="play" id="first">
-            <i class="fas fa-play" ></i>
+    <section class="main">
+        <header class="game__header">
+            <button class="game__play" id="first">
+                <i class="fas fa-play" ></i>
+            </button>
+            <span class="game__timer">
+                0:10
+            </span>
+            <span class="carrot__count">
+                10
+            </span>
+        </header>
+        <section class="game__field"></section>
+    </section>
+    <section class="pop-up pop-up__hide">
+        <button class="pop-up__refresh">
+            <i class="fas fa-redo"></i>
         </button>
-        <div class="timer__time">
-            0:10
-        </div>
-        <div class="carrot__count">
-            10
-        </div>
-        <div class="end__game"></div>
-        <section class="field"></section>
+        <span class="pop-up__message">Hello</span>
     </section>
 </body>
 </html>
